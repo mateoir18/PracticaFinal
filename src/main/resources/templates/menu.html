@@ -1,0 +1,17 @@
+<nav th:fragment="menuSuperior" class="navbar navbar-expand-lg navbar-light"  style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#"> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <a class="btn btn-primary" href="#">Hola <span sec:authentication="name"></span></a>
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="#" th:href="@{~/libros}">Libros</a>
+      <a class="nav-item nav-link" href="#" th:href="@{~/compras}">Compras</a>
+       <a class="nav-item nav-link" href="#" th:href="@{~/clientes}">Clientes</a>
+      <a class="nav-item nav-link" href="#" th:href="@{~/logout}">Logout</a>
+      <a class="nav-item nav-link" href="#" sec:authorize="hasAuthority('ADMIN')">Logeado como admin</a>
+      <a class="nav-item nav-link" href="#" sec:authorize="hasAuthority('USER')">Logeado como usuario</a>
+    </div>
+  </div>
+</nav>

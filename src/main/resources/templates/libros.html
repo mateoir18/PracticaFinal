@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Libros</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+
+  <div class="row" th:insert="~{menu :: menuSuperior}"></div>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-8">
+            <div class="col-12" th:if="${#lists.isEmpty(libros)}">
+              <h2>No hay libros,¿quieres añadirlos?</h2>
+              <div class="col-2">
+                <p><a  sec:authorize="hasAuthority('ADMIN')" class="btn btn-outline-primary" th:href="@{~/libros/add}">Añadir Libro</a></p>
+              </div>
+            </div>
+           
+            
+        <table class="table table-sm table-hover" th:if="${not #lists.isEmpty(libros)}">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Comprar</th>
+              <th scope="col">Eliminar</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each ="libro: ${libros}">
+              <th scope="row" th:text="${libro.id}">ID</th>
+              <td>
+				  <a th:href="@{~/libros/edit/{id}(id=${libro.id})}" th:text="${libro.titulo}"> titulo</a>
+			  </td>
+              <td th:text="${libro.autor}">Autor</td>
+              <td th:text="${libro.precio}">Precio</td>
+              <td><a class="badge badge-pill badge-danger text-success" th:href="@{~/compras/add}">Comprar</a></td>
+              <td><a class="badge badge-pill badge-danger btn btn-outline-primary text-danger" th:href="@{~/libros/del/{id}(id=${libro.id})}" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Eliminar</a>
+
+            </tr>
+            
+          </tbody>
+        </table>
+       </div>             
+              
+          </div>
+          
+          <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-2" th:if="${not #lists.isEmpty(libros)}">
+              <p><a  sec:authorize="hasAuthority('ADMIN')" class="btn btn-outline-primary" th:href="@{~/libros/add}">Añadir libro</a></p>
+            </div>
+            <div class="col-9">
+            </div>
+          </div>
+          </div>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
